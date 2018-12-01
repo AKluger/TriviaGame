@@ -13,7 +13,11 @@
 
 //if timer runs out...
 
-//setTimeout for answer reveal page that calls function of  next question
+//setTimeout for answer reveal page that calls function of next question
+
+//if answer x then .html this stuff and do 3 second countdown or .html this other stuff a do countdown as well
+
+//I guess that static answer page with countdown is its own function
 
 
 
