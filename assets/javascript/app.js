@@ -5,19 +5,112 @@ window.onload = function () {
 
     $("#start").click(timer.start);
 
+}
 
+var newGame = function () {
+    $("#reveal").off()
+    // $("#animate").stop() not working to stop animation
+    x = 0
+    i = 0
+    rightAnswer = 0
+    wrongAnswer = 0
+    unanswered = 0
+    $(".answers").removeClass("box")
+    $(".answers").empty()
+    $("#question").empty()
+    timer.start()
 
 }
+
 var choice;
 var intervalId;
 var flipPage;
 var clockRunning = false;
 var x = 0;
-var i = -1;
+var i = 0;
 var rightAnswer = 0;
 var wrongAnswer = 0;
 var unanswered = 0;
 
+var endGame = function () {
+    $("#correct").html("<h2>All Done!  Let's see the results:</h3>")
+    $(".answers").addClass("box")
+    $("#answerOne").html("<h3> Correct: " + rightAnswer + "</h3>")
+    $("#answerTwo").html("<h3> Incorrect: " + wrongAnswer + "</h3>")
+    $("#answerThree").html("<h3> Unanswered: " + unanswered + "</h3>")
+    $("#reveal").html("<h2><button> Start Over? </button></h2>")
+    $("#reveal").click(newGame);
+
+
+
+    //BEGIN emoji rain copied from CodePen by Robert Heiser
+    var container = document.getElementById('animate');
+    var emoji = ['🥐', '🥖', '🍞', '🍪', '👨🏻‍🍳', '👩🏽‍🍳'];
+    var circles = [];
+
+    for (var i = 0; i < 6; i++) {
+        addCircle(i * 150, [10 + 0, 300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 + 0, -300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 - 200, -300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 + 200, 300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 - 400, -300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 + 400, 300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 - 600, -300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 + 600, 300], emoji[Math.floor(Math.random() * emoji.length)]);
+    }
+
+
+
+    function addCircle(delay, range, color) {
+        setTimeout(function () {
+            var c = new Circle(range[0] + Math.random() * range[1], 80 + Math.random() * 4, color, {
+                x: -0.15 + Math.random() * 0.3,
+                y: 1 + Math.random() * 1
+            }, range);
+            circles.push(c);
+        }, delay);
+    }
+
+    function Circle(x, y, c, v, range) {
+        var _this = this;
+        this.x = x;
+        this.y = y;
+        this.color = c;
+        this.v = v;
+        this.range = range;
+        this.element = document.createElement('span');
+        /*this.element.style.display = 'block';*/
+        this.element.style.opacity = 0;
+        this.element.style.position = 'absolute';
+        this.element.style.fontSize = '26px';
+        this.element.style.color = 'hsl(' + (Math.random() * 360 | 0) + ',80%,50%)';
+        this.element.innerHTML = c;
+        container.appendChild(this.element);
+
+        this.update = function () {
+            if (_this.y > 800) {
+                _this.y = 80 + Math.random() * 4;
+                _this.x = _this.range[0] + Math.random() * _this.range[1];
+            }
+            _this.y += _this.v.y;
+            _this.x += _this.v.x;
+            this.element.style.opacity = 1;
+            this.element.style.transform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+            this.element.style.webkitTransform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+            this.element.style.mozTransform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+        };
+    }
+
+    function animate() {
+        for (var i in circles) {
+            circles[i].update();
+        }
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+    // END emoji rain code
+}
 var timer = {
 
     time: 15,
@@ -31,7 +124,7 @@ var timer = {
 
     start: function () {
         // for (i = 0; i < questionArr.length; i++)
-        if (!clockRunning) {
+        if (!clockRunning && (x < 8)) {
             clearTimeout(flipPage)
             $("#correct, #reveal").empty();
             timer.reset()
@@ -41,6 +134,8 @@ var timer = {
             x++
             $("#start").remove();
         }
+
+        else { endGame() }
         //else (once i is done, run endGame function which will show score etc)
     },
 
@@ -64,6 +159,7 @@ var timer = {
     stop: function () {
         intervalId = clearInterval(intervalId)
         $(".answers").empty();
+        $("#question").empty()
     }
 };
 
@@ -96,7 +192,7 @@ var qThree = {
     answerTwo: "Chocolate",
     answerThree: "Wine",
     answerFour: "Brown Sugar",
-    image: "<img src='assets/images/pepper.gif'</img>"
+    image: "<img src='assets/images/brioche.gif'</img>"
 }
 
 var qFour = {
@@ -111,32 +207,32 @@ var qFour = {
 
 var qFive = {
 
-    question: "4.  This popular breakfast pastry comes in the shape of a crescent",
+    question: "5.  This popular breakfast pastry comes in the shape of a crescent",
     answerOne: "Quiche",
     answerTwo: "Bagel",
-    answerThree: "Doughnut",
+    answerThree: "Donut",
     answerFour: "Croissant",
-    image: "<img src='assets/images/pepper.gif'</img>"
+    image: "<img src='assets/images/croissants.gif'</img>"
 }
 
 var qSix = {
 
-    question: "5.  Which of these ancient cultures is known to have baked bread?",
+    question: "6.  Which of these ancient cultures is known to have baked bread?",
     answerOne: "Egyptians",
     answerTwo: "Greeks",
     answerThree: "Vikings",
     answerFour: "All of the Above",
-    image: "<img src='assets/images/pepper.gif'</img>"
+    image: "<img src='assets/images/slicedBread.gif'</img>"
 }
 
 var qSeven = {
 
-    question: "7.  This pastry is sometimes referred to as escargot for its spiral shape:",
-    answerOne: "Galette",
-    answerTwo: "Pain aux raisins",
-    answerThree: "Palmier",
-    answerFour: "Eclair",
-    image: "<img src='assets/images/pepper.gif'</img>"
+    question: "7.  Which of these techniques is NOT typically part of cookie making?",
+    answerOne: "Baking",
+    answerTwo: "Rolling",
+    answerThree: "Kneading",
+    answerFour: "Creaming",
+    image: "<img src='assets/images/cookie.gif'</img>"
 }
 
 var qEight = {
@@ -146,7 +242,7 @@ var qEight = {
     answerTwo: "Carrot Cake",
     answerThree: "Doughnut",
     answerFour: "Apple Pie",
-    image: "<img src='assets/images/pepper.gif'</img>"
+    image: "<img src='assets/images/donut.gif'</img>"
 }
 
 var questionArr = [qOne, qTwo, qThree, qFour, qFive, qSix, qSeven, qEight];
@@ -154,25 +250,25 @@ var questionArr = [qOne, qTwo, qThree, qFour, qFive, qSix, qSeven, qEight];
 var Question = function (x) {
     // for (i = 0; i < questionArr.length; i++)
     $("#question").text(x.question)
-    $("#answerOne").text(x.answerOne)
+    $("#answerOne").html("<btn>" + x.answerOne + "</btn>")
     $("#answerTwo").text(x.answerTwo)
     $("#answerThree").text(x.answerThree)
-    $("#answerFour").text(x.answerFour);
+    $("#answerFour").text(x.answerFour)
+    $(".answers").addClass("btn btn-lg")
     $(".answers").click(reveal);
 }
 
-var answerKey = [qOne.answerThree, qTwo.answerTwo, qThree.answerOne, qFour.answerThree, qFive.answerFour, qSix.answerFour, qSeven.answerTwo, qEight.answerThree];
+var answerKey = [qOne.answerThree, qTwo.answerTwo, qThree.answerOne, qFour.answerThree, qFive.answerFour, qSix.answerFour, qSeven.answerThree, qEight.answerThree];
 
-var reveal = function () {
+var reveal = function (x) {
+    $(".answers").removeClass("hover")
     // for (i = 0; i < questionArr.length; i++)
-    i++
     $("#reveal").html(questionArr[i].image) //winning gif to display if correct clicked
+    i++
     clockRunning = false
-    flipPage = setTimeout(timer.start, 4000)
+    flipPage = setTimeout(timer.start, 1000)
     choice = $(this).text()
-    // choice = $.trim(choice)
-    // $(this) is updating but if statement doesnt work bc this is also printing emptied div..?
-    
+    console.log(i)
     console.log(choice)
 
     if (answerKey.indexOf(choice) > -1) {
@@ -184,40 +280,16 @@ var reveal = function () {
         $("#correct").html("<h3> Wrong Answer!</h3>")
         wrongAnswer++
     }
+    $(".answers").removeClass("btn btn-lg")  //prevents hover effect on empty divs
+    $(".answers").off();   //clears the click event for next round
     timer.stop()
 
 }
 
-// var answers = function()    {
-//     $(".answers").click(reveal(x));
-// }
-
-//also use hover event on each answer div
-
-//design one object per question with keys including question then answerOne Two etc..
-
-// for i in questionArr maybe with each stop of the game iterates to next set of questions
 
 
 
 
+//scoreboard object featuring correct incorrect and unanswered to be entered in answer divs on final page?
 
-//use function to populate ID with those by iterating.  So create array of objects then pass them as argument?
-//as part of freeze timer, if question = q1 display correct image
-
-//setTimeout for answer reveal page that calls function of next question
-
-//if answer x then .html this stuff and do 3 second countdown or .html this other stuff a do countdown as well
-
-//I guess that static answer page with countdown is its own function
-
-
-
-
-
-
-
-
-
-//scoreboard object featuring correct incorrect and unanswered to be entered in answer divs on final page
 

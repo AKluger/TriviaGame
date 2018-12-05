@@ -1,14 +1,20 @@
 body    {
     font-family: 'Quicksand', sans-serif;
+    background-color: #f9eccf;
 }
 
 h1  {
     font-size: 60px;
     color: #532900;
     margin-bottom: 10%;
+    border: solid 2px #532900;
+    padding: 4px;
     
 }
 
+h3  {
+    font-weight: bold;
+}
 .answers    {
     font-size: 20px;
 }
@@ -18,3 +24,48 @@ h1  {
     font-family: 'Overpass Mono', monospace;
 }
 
+.btn:hover {
+    color: #f9eccf;
+    font-weight: 700;
+    background-color: #532900;
+  }
+
+  #question {
+      font-size: 26px;
+  }
+
+   /* begin emoji rain */
+  #rain {
+    left: 0px;
+    top: -100px;
+    height: calc(100vh + 100px);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  #animate{
+    margin: 0 auto;
+    width: 20px;
+    overflow: visible;
+    position: relative;
+  }
+  
+  #all{
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+  }
+/* end emoji rain */
+
+  .box  {
+      background-color: white;
+  }
+
+  #start    {
+      color: #532900;
+      background-color: lightgreen;
+      font-size: 26px;
+      font-weight: bold;
+  }
+  
