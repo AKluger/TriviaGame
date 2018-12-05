@@ -128,7 +128,7 @@ var timer = {
             clearTimeout(flipPage)
             $("#correct, #reveal").empty();
             timer.reset()
-            intervalId = setInterval(timer.count, 4000)
+            intervalId = setInterval(timer.count, 1000)
             clockRunning = true;
             Question(questionArr[x])
             x++
@@ -266,7 +266,7 @@ var reveal = function (x) {
     $("#reveal").html(questionArr[i].image) //winning gif to display if correct clicked
     i++
     clockRunning = false
-    flipPage = setTimeout(timer.start, 1000)
+    flipPage = setTimeout(timer.start, 4000)
     choice = $(this).text()
     console.log(i)
     console.log(choice)
