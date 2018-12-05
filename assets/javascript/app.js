@@ -1,56 +1,74 @@
 
 //start main function to run on window open
 
-window.onload = function() {
+window.onload = function () {
 
     $("#start").click(timer.start);
 
 
 
 }
+var choice;
 var intervalId;
 var flipPage;
 var clockRunning = false;
-var x;
-var i;
+var x = 0;
+var i = -1;
+var rightAnswer = 0;
+var wrongAnswer = 0;
+var unanswered = 0;
 
-var Question = function(x)    {
-    $("#question").append(x.question)
-    $("#answerOne").append(x.answerOne)
-    $("#answerTwo").append(x.answerTwo)
-    $("#answerThree").append(x.answerThree)
-    $("#answerFour").append(x.answerFour);
-    $(".answers").click(reveal);
-}
+var timer = {
 
+    time: 15,
 
-var reveal = function(x)    {
-    for (i = 0; i < questionArr.length; i++)
-    timer.stop()
-    $("#reveal").html(questionArr[i].image) //winning gif to display if correct clicked
-    clockRunning = false
-    flipPage = setTimeout(timer.start, 4000)
-    clearTimeout(flipPage);
-}
-// var answers = function()    {
-//     $(".answers").click(reveal(x));
-// }
+    reset: function () {
 
+        timer.time = 15;
 
-//starting time
+        $("#Timer").text("time remaining: " + timer.time);
+    },
 
-//use click event for start button to call the first question 
-
-//Use element Ids and jQuery to label answer divs, 4 per question with click.
-//also use hover event on each answer div
-
-//use stopwatch functionality or set TimeOut?  including reset function to be called for each question page, putting starting time in clock div to begin countdown.  
-//Also include count function but starting from 25 seconds.
-//And StopInterval function
+    start: function () {
+        // for (i = 0; i < questionArr.length; i++)
+        if (!clockRunning) {
+            clearTimeout(flipPage)
+            $("#correct, #reveal").empty();
+            timer.reset()
+            intervalId = setInterval(timer.count, 1000)
+            clockRunning = true;
+            Question(questionArr[x])
+            x++
+            $("#start").remove();
+        }
+        //else (once i is done, run endGame function which will show score etc)
+    },
 
 
-//design one object per question with keys including question then answerOne Two etc..
+    //count function to increment timer down each second
+    count: function () {
+        timer.time--;
+        $("#Timer").text("time remaining: " + timer.time)
+        if (timer.time === 0) {
 
+            timer.stop()
+            unanswered++
+            reveal(x)
+            $("#correct").html("<h3> Time's Up!</h3>")
+            x++
+
+
+        }
+    },
+
+    stop: function () {
+        intervalId = clearInterval(intervalId)
+        $(".answers").empty();
+    }
+};
+
+
+// LIST OF QUESTIONS
 var qOne = {
 
     question: "1.  Which of these ingredients is NOT usually found in bread?",
@@ -67,7 +85,8 @@ var qTwo = {
     answerOne: "Baking",
     answerTwo: "Fermentation",
     answerThree: "Icing",
-    answerFour: "Dueling"
+    answerFour: "Dueling",
+    image: "<img src='assets/images/beerDog.gif'</img>"
 }
 
 var qThree = {
@@ -76,7 +95,8 @@ var qThree = {
     answerOne: "Butter",
     answerTwo: "Chocolate",
     answerThree: "Wine",
-    answerFour: "Brown Sugar"
+    answerFour: "Brown Sugar",
+    image: "<img src='assets/images/pepper.gif'</img>"
 }
 
 var qFour = {
@@ -84,17 +104,19 @@ var qFour = {
     question: "4.  the German dessert Schwarzwälder Kirschtorte is commonly known as what?",
     answerOne: "Chocolate Eclair",
     answerTwo: "Viennoiserie",
-    answerThree: "Black FOrest Cake",
-    answerFour: "Peanut-Butter Jelly Time"
+    answerThree: "Black Forest Cake",
+    answerFour: "Peanut-Butter Jelly Time",
+    image: "<img src='assets/images/swedishChef.gif'</img>"
 }
 
 var qFive = {
 
     question: "4.  This popular breakfast pastry comes in the shape of a crescent",
-    answerOne: "Croissant",
+    answerOne: "Quiche",
     answerTwo: "Bagel",
     answerThree: "Doughnut",
-    answerFour: "Quiche"
+    answerFour: "Croissant",
+    image: "<img src='assets/images/pepper.gif'</img>"
 }
 
 var qSix = {
@@ -103,7 +125,8 @@ var qSix = {
     answerOne: "Egyptians",
     answerTwo: "Greeks",
     answerThree: "Vikings",
-    answerFour: "All of the Above"
+    answerFour: "All of the Above",
+    image: "<img src='assets/images/pepper.gif'</img>"
 }
 
 var qSeven = {
@@ -112,72 +135,75 @@ var qSeven = {
     answerOne: "Galette",
     answerTwo: "Pain aux raisins",
     answerThree: "Palmier",
-    answerFour: "Eclair"
+    answerFour: "Eclair",
+    image: "<img src='assets/images/pepper.gif'</img>"
 }
 
 var qEight = {
 
     question: "8.  Which of these items is commonly fried?",
-    answerOne: "Doughnut",
-    answerTwo: "Bagel",
-    answerThree: "Carrot Cake",
-    answerFour: "Apple Pie"
+    answerOne: "Bagel",
+    answerTwo: "Carrot Cake",
+    answerThree: "Doughnut",
+    answerFour: "Apple Pie",
+    image: "<img src='assets/images/pepper.gif'</img>"
 }
 
 var questionArr = [qOne, qTwo, qThree, qFour, qFive, qSix, qSeven, qEight];
 
+var Question = function (x) {
+    // for (i = 0; i < questionArr.length; i++)
+    $("#question").text(x.question)
+    $("#answerOne").text(x.answerOne)
+    $("#answerTwo").text(x.answerTwo)
+    $("#answerThree").text(x.answerThree)
+    $("#answerFour").text(x.answerFour);
+    $(".answers").click(reveal);
+}
+
+var answerKey = [qOne.answerThree, qTwo.answerTwo, qThree.answerOne, qFour.answerThree, qFive.answerFour, qSix.answerFour, qSeven.answerTwo, qEight.answerThree];
+
+var reveal = function () {
+    // for (i = 0; i < questionArr.length; i++)
+    i++
+    $("#reveal").html(questionArr[i].image) //winning gif to display if correct clicked
+    clockRunning = false
+    flipPage = setTimeout(timer.start, 4000)
+    choice = $(this).text()
+    // choice = $.trim(choice)
+    // $(this) is updating but if statement doesnt work bc this is also printing emptied div..?
+    
+    console.log(choice)
+
+    if (answerKey.indexOf(choice) > -1) {
+        rightAnswer++
+        $("#correct").html("<h3> Correct!</h3>")
+
+    }
+    else {
+        $("#correct").html("<h3> Wrong Answer!</h3>")
+        wrongAnswer++
+    }
+    timer.stop()
+
+}
+
+// var answers = function()    {
+//     $(".answers").click(reveal(x));
+// }
+
+//also use hover event on each answer div
+
+//design one object per question with keys including question then answerOne Two etc..
+
 // for i in questionArr maybe with each stop of the game iterates to next set of questions
 
-var timer = {
 
-time: 15,
-
-start: function()    {
-    for (i = 0; i < questionArr.length; i++)
-    if(!clockRunning)   {
-        intervalId = setInterval(timer.count, 1000)
-        clockRunning = true;
-        Question(questionArr[i]);
-        // $("start").remove(); 
-    }
-},
-
-
-//count function to increment timer down each second
-count: function()    {
-    timer.time--;
-    $("#Timer").text("time remaining: " + timer.time)
-    if (timer.time === 0) {
-
-        //  ...run the stop function.
-        timer.stop();
-        $("#answerOne").html("<h3> Time's Up!</h3>");
-
-       
-      }
-},
-
-stop: function()    {
-    intervalId = clearInterval(intervalId)
-    // clockRunning = false
-    // reveal(qOne)
-    // flipPage = setTimeout(timer.start, 4000)
-    // clearTimeout(flipPage);
-    
-    //does clockrunning need to be false here?
-},
-};
 
 
 
 //use function to populate ID with those by iterating.  So create array of objects then pass them as argument?
-//if any button is clicked run freeze timer function.  
 //as part of freeze timer, if question = q1 display correct image
-
-//build answer key.  Correct answer value is 1 others are 0 so if answer value = 1 run correct function
-
-
-//if timer runs out...
 
 //setTimeout for answer reveal page that calls function of next question
 

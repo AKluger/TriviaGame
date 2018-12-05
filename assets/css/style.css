@@ -9,6 +9,10 @@ h1  {
     
 }
 
+.answers    {
+    font-size: 20px;
+}
+
 #Timer  {
     font-size: 24px;
     font-family: 'Overpass Mono', monospace;
