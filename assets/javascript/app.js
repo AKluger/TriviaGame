@@ -128,7 +128,7 @@ var timer = {
             clearTimeout(flipPage)
             $("#correct, #reveal").empty();
             timer.reset()
-            intervalId = setInterval(timer.count, 1000)
+            intervalId = setInterval(timer.count, 4000)
             clockRunning = true;
             Question(questionArr[x])
             x++
