@@ -6,3 +6,10 @@ This game is meant to showcase what I have learned about using timers in javascr
 User begins game by pressing start button.  Each time an answer is chosen, answer page will load, triggering countdown for next question.
 
 It is ultimately destined to be content for https://hartfordbaking.com/
+
+### Technology used
+* HTML
+* CSS
+* Bootstrap
+* Javascript
+* jQuery
