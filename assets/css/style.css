@@ -5,7 +5,8 @@ body    {
 
 h1  {
     font-size: 60px;
-    color: #532900;
+    color: #f9eccf;
+    background-color: #532900;
     margin-bottom: 10%;
     border: solid 2px #532900;
     padding: 4px;
@@ -64,7 +65,25 @@ h3  {
 
   #start    {
       color: #532900;
-      background-color: lightgreen;
+      background-color: #d8633e;
       font-size: 26px;
       font-weight: bold;
   }
+
+  #start:hover{
+    color: #d8633e;
+    background-color:#532900;
+
+  }
+  footer  {
+    background-color: #532900;
+    /* border-top: 8px solid #222; */
+    padding: 25px 0;
+    clear: both;
+    font-size: 14px;
+    position: sticky;
+}
+
+#foot   {
+    color: #d8633e;
+}

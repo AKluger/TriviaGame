@@ -1,11 +1,10 @@
-# TriviaGame
-Bakery Trivia Game
+# Bakery Trivia 
 
-This game is meant to showcase what I have learned about using timers in javascript as well as jQuery.  
+### About:  
+A fun game to test your knowledge of baked goods!  
+  
 
-User begins game by pressing start button.  Each time an answer is chosen, answer page will load, triggering countdown for next question.
-
-It is ultimately destined to be content for https://hartfordbaking.com/
+Begin a new game by pressing the start button.  Each time an answer is chosen, an answer page will load the appropriate image and trigger a countdown for the next question.  Surprise at the end!
 
 ### Technology used
 * HTML
@@ -13,3 +12,5 @@ It is ultimately destined to be content for https://hartfordbaking.com/
 * Bootstrap
 * Javascript
 * jQuery
+
+Designed for https://hartfordbaking.com/
