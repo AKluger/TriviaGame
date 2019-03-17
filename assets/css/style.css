@@ -9,7 +9,9 @@ h1  {
     background-color: #532900;
     margin-bottom: 10%;
     border: solid 2px #532900;
+    width: 100%;
     padding: 4px;
+    align: center;
     
 }
 
@@ -81,7 +83,9 @@ h3  {
     padding: 25px 0;
     clear: both;
     font-size: 14px;
-    position: sticky;
+    width: 100%;
+    position: fixed;
+    bottom:0;
 }
 
 #foot   {

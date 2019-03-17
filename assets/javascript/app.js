@@ -1,15 +1,12 @@
-
 //start main function to run on window open
-
 window.onload = function () {
 
     $("#start").click(timer.start);
 
 }
-
-var newGame = function () {
+const newGame = function () {
     $("#reveal").off()
-    $("#all").empty().append( $("<div id='rain'> <div id='animate'> </div></div>"))
+    $("#all").empty().append($("<div id='rain'> <div id='animate'> </div></div>"))
 
     x = 0
     i = 0
@@ -22,19 +19,18 @@ var newGame = function () {
     timer.start()
 
 }
-
-var choice;
-var intervalId;
-var flipPage;
-var clockRunning = false;
-var x = 0;
-var i = 0;
-var rightAnswer = 0;
-var wrongAnswer = 0;
-var unanswered = 0;
+let choice;
+let intervalId;
+let flipPage;
+let clockRunning = false;
+let x = 0;
+let i = 0;
+let rightAnswer = 0;
+let wrongAnswer = 0;
+let unanswered = 0;
 
 //runs at conclusion of game round
-var endGame = function () {
+const endGame = function () {
     $("#correct").html("<h2>All Done!  Let's see the results:</h3>")
     $(".answers").addClass("box")
     $("#answerOne").html("<h3> Correct: " + rightAnswer + "</h3>")
@@ -46,11 +42,11 @@ var endGame = function () {
 
 
     //BEGIN emoji rain copied from CodePen by Robert Heiser
-    var container = document.getElementById('animate');
-    var emoji = ['🥐', '🥖', '🍞', '🍪', '👨🏻‍🍳', '👩🏽‍🍳'];
-    var circles = [];
+    let container = document.getElementById('animate');
+    let emoji = ['🥐', '🥖', '🍞', '🍪', '👨🏻‍🍳', '👩🏽‍🍳'];
+    let circles = [];
 
-    for (var b = 0; b < 6; b++) {
+    for (let b = 0; b < 6; b++) {
         addCircle(b * 150, [10 + 0, 300], emoji[Math.floor(Math.random() * emoji.length)]);
         addCircle(b * 150, [10 + 0, -300], emoji[Math.floor(Math.random() * emoji.length)]);
         addCircle(b * 150, [10 - 200, -300], emoji[Math.floor(Math.random() * emoji.length)]);
@@ -65,7 +61,7 @@ var endGame = function () {
 
     function addCircle(delay, range, color) {
         setTimeout(function () {
-            var c = new Circle(range[0] + Math.random() * range[1], 80 + Math.random() * 4, color, {
+            let c = new Circle(range[0] + Math.random() * range[1], 80 + Math.random() * 4, color, {
                 x: -0.15 + Math.random() * 0.3,
                 y: 1 + Math.random() * 1
             }, range);
@@ -74,14 +70,13 @@ var endGame = function () {
     }
 
     function Circle(x, y, c, v, range) {
-        var _this = this;
+        let _this = this;
         this.x = x;
         this.y = y;
         this.color = c;
         this.v = v;
         this.range = range;
         this.element = document.createElement('span');
-        /*this.element.style.display = 'block';*/
         this.element.style.opacity = 0;
         this.element.style.position = 'absolute';
         this.element.style.fontSize = '26px';
@@ -104,7 +99,7 @@ var endGame = function () {
     }
 
     function animate() {
-        for (var b in circles) {
+        for (let b in circles) {
             circles[b].update();
         }
         requestAnimationFrame(animate);
@@ -115,7 +110,7 @@ var endGame = function () {
 }
 
 //timer object
-var timer = {
+let timer = {
 
     time: 15,
 
@@ -140,7 +135,7 @@ var timer = {
         }
 
         else { endGame() }
-        
+
     },
 
     //count function to increment timer down each second
@@ -166,7 +161,7 @@ var timer = {
 
 
 // LIST OF QUESTIONS
-var qOne = {
+let qOne = {
 
     question: "1.  Which of these ingredients is NOT usually found in bread?",
     answerOne: "Flour",
@@ -176,7 +171,7 @@ var qOne = {
     image: "<img src='assets/images/pepper.gif'</img>"
 }
 
-var qTwo = {
+let qTwo = {
 
     question: "2.  Which of these processes occurs both in bread making AND beer making?",
     answerOne: "Baking",
@@ -186,7 +181,7 @@ var qTwo = {
     image: "<img src='assets/images/beerDog.gif'</img>"
 }
 
-var qThree = {
+let qThree = {
 
     question: "3.  What is a signature ingredient of the French bread known as 'Brioche'?",
     answerOne: "Butter",
@@ -196,7 +191,7 @@ var qThree = {
     image: "<img src='assets/images/brioche.gif'</img>"
 }
 
-var qFour = {
+let qFour = {
 
     question: "4.  the German dessert Schwarzwälder Kirschtorte is commonly known as what?",
     answerOne: "Chocolate Eclair",
@@ -206,7 +201,7 @@ var qFour = {
     image: "<img src='assets/images/swedishChef.gif'</img>"
 }
 
-var qFive = {
+let qFive = {
 
     question: "5.  This popular breakfast pastry comes in the shape of a crescent:",
     answerOne: "Quiche",
@@ -216,7 +211,7 @@ var qFive = {
     image: "<img src='assets/images/croissants.gif'</img>"
 }
 
-var qSix = {
+let qSix = {
 
     question: "6.  Which of these ancient cultures is known to have baked bread?",
     answerOne: "Egyptians",
@@ -226,7 +221,7 @@ var qSix = {
     image: "<img src='assets/images/slicedBread.gif'</img>"
 }
 
-var qSeven = {
+let qSeven = {
 
     question: "7.  Which of these techniques is NOT typically part of cookie making?",
     answerOne: "Baking",
@@ -236,7 +231,7 @@ var qSeven = {
     image: "<img src='assets/images/cookie.gif'</img>"
 }
 
-var qEight = {
+let qEight = {
 
     question: "8.  Which of these items is commonly fried?",
     answerOne: "Bagel",
@@ -246,11 +241,10 @@ var qEight = {
     image: "<img src='assets/images/donut.gif'</img>"
 }
 
-var questionArr = [qOne, qTwo, qThree, qFour, qFive, qSix, qSeven, qEight];
+let questionArr = [qOne, qTwo, qThree, qFour, qFive, qSix, qSeven, qEight];
 
 
-var Question = function (x) {
-    // for (i = 0; i < questionArr.length; i++)
+let Question = function (x) {
     $("#question").text(x.question)
     $("#answerOne").html("<btn>" + x.answerOne + "</btn>")
     $("#answerTwo").text(x.answerTwo)
@@ -260,19 +254,17 @@ var Question = function (x) {
     $(".answers").click(reveal);
 }
 
-var answerKey = [qOne.answerThree, qTwo.answerTwo, qThree.answerOne, qFour.answerThree, qFive.answerFour, qSix.answerFour, qSeven.answerThree, qEight.answerThree];
+let answerKey = [qOne.answerThree, qTwo.answerTwo, qThree.answerOne, qFour.answerThree, qFive.answerFour, qSix.answerFour, qSeven.answerThree, qEight.answerThree];
 
 
 //runs after user chooses an answer
-var reveal = function (x) {
+let reveal = function (x) {
     $(".answers").removeClass("hover")
     $("#reveal").html(questionArr[i].image) //winning gif to display if correct clicked
     i++
     clockRunning = false
     flipPage = setTimeout(timer.start, 4000)
     choice = $(this).text()
-    console.log(i)
-    console.log(choice)
 
     if (answerKey.indexOf(choice) > -1) {
         rightAnswer++
